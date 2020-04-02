@@ -67,6 +67,13 @@ namespace CarApp
             txtRegNr.Focus();
         }
 
+        /// <summary>
+        /// Hjälpfunktion till btnAdd_Click
+        /// </summary>
+        /// <param name="regNr">Text i textbox för Reg Nr</param>
+        /// <param name="make">Text i textbox för Märke</param>
+        /// <param name="forSale">Text i textbox för till salu, falsk annars</param>
+        /// <return></return>
         private ListViewItem CreateListViewItem(string regNr, string make, bool forSale)
         {
             ListViewItem item = new ListViewItem(regNr);
@@ -75,6 +82,9 @@ namespace CarApp
             return item;
         }
 
+        /// <summary>
+        /// Rensar alla textfält och sätter regnummer till att vara i fokus
+        /// </summary>
         private void ClearTextBoxes()
         {
             txtRegNr.Clear();
