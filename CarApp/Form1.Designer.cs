@@ -45,6 +45,8 @@
             this.txtRegNr = new System.Windows.Forms.TextBox();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
+            this.make = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.year = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,7 +72,9 @@
             // 
             this.lsvCars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.regnr,
+            this.make,
             this.model,
+            this.year,
             this.forsale});
             this.lsvCars.HideSelection = false;
             this.lsvCars.Location = new System.Drawing.Point(12, 118);
@@ -234,6 +238,8 @@
         private System.Windows.Forms.ColumnHeader forsale;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.ColumnHeader make;
+        private System.Windows.Forms.ColumnHeader year;
     }
 }
 
