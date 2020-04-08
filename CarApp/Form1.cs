@@ -94,5 +94,19 @@ namespace CarApp
             cbxForSale.Checked = false;
             txtRegNr.Focus();
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtRegNr.Text))
+            {
+                string regNr = txtRegNr.Text.ToUpper();
+
+                //PrintData(regNr);
+            }
+            else
+            {
+                MessageBox.Show("Du måste ange ett registeringsnummer", "Inmatning saknas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
     }
 }
