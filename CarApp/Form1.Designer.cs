@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.txtYear = new System.Windows.Forms.TextBox();
             this.txtRegNr = new System.Windows.Forms.TextBox();
             this.txtModel = new System.Windows.Forms.TextBox();
@@ -47,12 +48,14 @@
             this.forsale = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnClear = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
-            this.btnSearch = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.btnSearch);
             this.groupBox1.Controls.Add(this.txtYear);
             this.groupBox1.Controls.Add(this.txtRegNr);
@@ -69,6 +72,16 @@
             this.groupBox1.Size = new System.Drawing.Size(696, 100);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(6, 71);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(190, 23);
+            this.btnSearch.TabIndex = 7;
+            this.btnSearch.Text = "Sök efter bilregistering";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // txtYear
             // 
@@ -93,6 +106,9 @@
             // 
             // cbxForSale
             // 
+            this.cbxForSale.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbxForSale.AutoSize = true;
             this.cbxForSale.Location = new System.Drawing.Point(590, 12);
             this.cbxForSale.Name = "cbxForSale";
@@ -156,6 +172,9 @@
             // 
             // lsvCars
             // 
+            this.lsvCars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lsvCars.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.regnr,
             this.make,
@@ -193,7 +212,8 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(21, 325);
+            this.btnClear.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnClear.Location = new System.Drawing.Point(12, 325);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(109, 23);
             this.btnClear.TabIndex = 7;
@@ -203,23 +223,14 @@
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(602, 329);
+            this.btnRemove.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnRemove.Location = new System.Drawing.Point(602, 325);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(106, 23);
             this.btnRemove.TabIndex = 8;
             this.btnRemove.Text = "Ta bort markerad";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Location = new System.Drawing.Point(6, 71);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(190, 23);
-            this.btnSearch.TabIndex = 7;
-            this.btnSearch.Text = "Sök efter bilregistering";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // Form1
             // 

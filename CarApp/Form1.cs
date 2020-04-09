@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace CarApp
 {
@@ -33,7 +36,7 @@ namespace CarApp
             else
             // Om alla fält är ifyllda så lägg till i listvyn
             {
-                ListViewItem item = CreateListViewItem(txtRegNr.Text, txtMake.Text, cbxForSale.Checked);
+                ListViewItem item = CreateListViewItem(txtRegNr.Text, txtMake.Text, txtModel.Text, txtYear.Text, cbxForSale.Checked);
                 lsvCars.Items.Add(item);
                 ClearTextBoxes();
                 btnClear.Enabled = true;
@@ -74,10 +77,12 @@ namespace CarApp
         /// <param name="make">Text i textbox för Märke</param>
         /// <param name="forSale">Text i textbox för till salu, falsk annars</param>
         /// <return></return>
-        private ListViewItem CreateListViewItem(string regNr, string make, bool forSale)
+        private ListViewItem CreateListViewItem(string regNr, string make, string model, string year, bool forSale)
         {
             ListViewItem item = new ListViewItem(regNr);
             item.SubItems.Add(make);
+            item.SubItems.Add(model);
+            item.SubItems.Add(year);
             item.SubItems.Add(forSale ? "Yes" : "No");
             return item;
         }
@@ -101,11 +106,44 @@ namespace CarApp
             {
                 string regNr = txtRegNr.Text.ToUpper();
 
-                //PrintData(regNr);
+                PrintData(regNr);
             }
             else
             {
                 MessageBox.Show("Du måste ange ett registeringsnummer", "Inmatning saknas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+     
+        }
+        ///<summary>
+        ///
+        ///</summary>
+        ///
+        private void PrintData(string regNr)
+        {
+            /// Exempel https://api.biluppgifter.se/api/v1/vehicle/regno/XNF905?api_token=DtIAxcVeOZhJzLnC6LYN3BjwasJw2FIA5hdvgP00lNKw1cM53ddy1iWpll54
+
+            string token = "DtIAxcVeOZhJzLnC6LYN3BjwasJw2FIA5hdvgP00lNKw1cM53ddy1iWpll54";
+            string call = String.Format($"https://api.biluppgifter.se/api/v1/vehicle/regno/{regNr}?api_token={token}");
+
+            try
+            {
+                WebRequest request = HttpWebRequest.Create(call);
+
+                WebResponse response = request.GetResponse();
+
+                StreamReader reader = new StreamReader(response.GetResponseStream());
+
+                string carJSON = reader.ReadToEnd();
+
+                JObject jsonCar = JObject.Parse(carJSON);
+
+                txtMake.Text = jsonCar["data"]["basic"]["data"]["make"].ToString();
+                txtModel.Text = jsonCar["data"]["basic"]["data"]["model"].ToString();
+                txtYear.Text = jsonCar["data"]["basic"]["data"]["model_year"].ToString();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Bil med registreringsnummer {regNr} kunde inte hittas \n\nMeddelande: {e.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
