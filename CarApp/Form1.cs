@@ -15,6 +15,7 @@ namespace CarApp
 {
     public partial class Form1 : Form
     {
+        Database dbObject = new Database();
         public Form1()
         {
             InitializeComponent();
@@ -36,6 +37,12 @@ namespace CarApp
             else
             // Om alla fält är ifyllda så lägg till i listvyn
             {
+                Car car = new Car(txtRegNr.Text, txtMake.Text, txtModel.Text, Convert.ToInt32(txtYear.Text), cbxForSale.Checked);
+
+                // Lägg till bilen i databasen
+                int result = dbObject.AddCarRow(car);
+                MessageBox.Show("Du har lagt till " + Convert.ToString(result) + " antal bilar");
+
                 ListViewItem item = CreateListViewItem(txtRegNr.Text, txtMake.Text, txtModel.Text, txtYear.Text, cbxForSale.Checked);
                 lsvCars.Items.Add(item);
                 ClearTextBoxes();
