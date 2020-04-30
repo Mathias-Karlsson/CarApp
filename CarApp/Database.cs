@@ -12,7 +12,7 @@ namespace CarApp
     class Database
     {
         public SQLiteConnection dbConn;
-        private string databaseFilename = "./car.db"; // Punkt är rotten till filen.
+        private string databaseFilename = "./car.db.db"; // Punkt är rotten till filen.
 
 
         public Database()
@@ -27,6 +27,35 @@ namespace CarApp
             dbConn = new SQLiteConnection("Data Source=" + databaseFilename);
         }
 
+        public List<Car> GetAllRowsFromCar()
+        {
+            string qSelect = "SELECT * FROM car;";
+            List<Car> listofCars = new List<Car>();
+
+
+            SQLiteCommand dbCommand = new SQLiteCommand(qSelect, dbConn);
+            OpenConnection();
+
+            SQLiteDataReader res = dbCommand.ExecuteReader();
+
+            if (res.HasRows)
+            {
+                while(res.Read())
+                {
+                    Car car = new Car(Convert.ToString(res["regNr"]),
+                        Convert.ToString(res["make"]),
+                        Convert.ToString(res["model"]),
+                        Convert.ToInt32(res["year"]),
+                        Convert.ToBoolean(res["forSale"])
+                        );
+                    listofCars.Add(car);
+                }
+            }
+            CloseConnection();
+
+            return listofCars;
+        }
+
         /// <summary>
         /// Öppnar kopplingen till databasen
         /// Om dbConn inte är öppen så öppnar dbConn
@@ -37,6 +66,23 @@ namespace CarApp
             {
                 dbConn.Open();
             }
+        }
+
+        public int RemoveCarRowByRegNr(string regNr)
+        {
+            string qDelete = "DELETE FROM car WHERE regNr = @regNr;";
+
+            SQLiteCommand dbCommand = new SQLiteCommand(qDelete, dbConn);
+            OpenConnection();
+
+            dbCommand.Parameters.AddWithValue("@regNr", regNr);
+
+
+            int result = dbCommand.ExecuteNonQuery();
+            CloseConnection();
+            return result;
+
+
         }
 
         /// <summary>
@@ -53,7 +99,7 @@ namespace CarApp
 
         public int AddCarRow(Car car)
         {
-            string qInsert = "INSERT INTO car {'regNr', 'make', 'model', 'year', 'forSale'} VALUES {@regNr, @make, @model, @year, @forSale}; ";
+            string qInsert = "INSERT INTO car ('regNr', 'make', 'model', 'year', 'forSale') VALUES (@regNr, @make, @model, @year, @forSale); ";
 
             SQLiteCommand dbCommand = new SQLiteCommand(qInsert, dbConn);
             OpenConnection();
