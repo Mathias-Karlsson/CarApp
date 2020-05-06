@@ -127,14 +127,12 @@ namespace CarApp
 
         }
 
-        public int RemoveAllCarByRegNr(string regNr)
+        public int RemoveAllCars()
         {
-            string qAllDelete = "DELETE FROM car ";
+            string qAllDelete = "DELETE FROM car";
 
             SQLiteCommand dbCommand = new SQLiteCommand(qAllDelete, dbConn);
             OpenConnection();
-
-            dbCommand.Parameters.AddWithValue("@regNr", regNr);
 
             int result = dbCommand.ExecuteNonQuery();
 
