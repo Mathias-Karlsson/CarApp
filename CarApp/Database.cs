@@ -14,6 +14,7 @@ namespace CarApp
         public SQLiteConnection dbConn;
         private string databaseFilename = "./car.db.db"; // Punkt är rotten till filen.
 
+        
 
         public Database()
         {
@@ -85,6 +86,8 @@ namespace CarApp
 
         }
 
+        
+
         /// <summary>
         /// Stänger kopplingen till databasen
         /// Om dbConn inte är stängt så stängs dbConn
@@ -122,6 +125,21 @@ namespace CarApp
             CloseConnection();
             return result;
 
+        }
+
+        public int RemoveAllCarByRegNr(string regNr)
+        {
+            string qAllDelete = "DELETE FROM car ";
+
+            SQLiteCommand dbCommand = new SQLiteCommand(qAllDelete, dbConn);
+            OpenConnection();
+
+            dbCommand.Parameters.AddWithValue("@regNr", regNr);
+
+            int result = dbCommand.ExecuteNonQuery();
+
+            CloseConnection();
+            return result;
         }
     }
 }

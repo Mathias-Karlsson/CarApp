@@ -96,8 +96,20 @@ namespace CarApp
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            lsvCars.Items.Clear();
-            txtRegNr.Focus();
+            int res = dbObject.RemoveAllCarByRegNr(lsvCars.Items[0].Text);
+            if (res > 0)
+            {
+                if (lsvCars.Items.Count > 0)
+                {
+                    lsvCars.Items.Clear();
+                    txtRegNr.Focus();
+                    MessageBox.Show("Alla bilar som fanns i data är borta nu");
+                }
+                else
+                {
+                    MessageBox.Show("Det fanns inga bilar i databasen att ta bort");
+                }
+            }
         }
 
         /// <summary>
